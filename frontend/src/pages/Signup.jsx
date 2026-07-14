@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { register } from "../services/authService.js";
+import { useNavigate } from "react-router-dom";
 
 function Signup() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     userName: "",
     email: "",
@@ -19,6 +21,7 @@ function Signup() {
     try {
       const res = await register(formData);
       alert(res.data.message);
+      navigate("/signin");
 
       setFormData({
         userName: "",
@@ -39,21 +42,21 @@ function Signup() {
           placeholder="Enter username"
           name="userName"
           onChange={onChange}
-        />{" "}
+        />
         <br />
         <input
           type="email"
           placeholder="Enter email"
           name="email"
           onChange={onChange}
-        />{" "}
+        />
         <br />
         <input
           type="password"
           placeholder="Enter password"
           name="password"
           onChange={onChange}
-        />{" "}
+        />
         <br />
         <button type="submit">Submit</button>
       </form>
