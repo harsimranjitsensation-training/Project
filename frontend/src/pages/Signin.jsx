@@ -1,8 +1,12 @@
 import { useState } from "react";
 import { login } from "../services/authService";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 function Signin() {
+  const navigate = useNavigate();
+  const { loginUser } = useAuth()
+
   const [formData, setFormData] = useState({ email: "", password: "" });
   const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -10,7 +14,11 @@ function Signin() {
     e.preventDefault();
     try {
       const res = await login(formData);
+
+      await loginUser(res.data.data);  //user: username:"abc", email:"xyz"
+      
       alert(res.data.message);
+      navigate("/home");
       setFormData({ email: "", password: "" });
     } catch (error) {
       console.error(error);

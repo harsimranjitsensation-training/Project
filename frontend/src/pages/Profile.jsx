@@ -1,5 +1,6 @@
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { useAuth } from "../context/AuthContext";
 
 const TOY_ORDERS = [
   { id: "#ORD-5542", date: "Jul 12, 2026", total: "₹4,999", status: "delivered", items: 1 },
@@ -7,6 +8,7 @@ const TOY_ORDERS = [
 ];
 
 export default function Profile() {
+  const {user, loading} = useAuth();
   return (
     <>
       <Navbar />
@@ -16,8 +18,8 @@ export default function Profile() {
           <div className="profile-sidebar">
             <div className="profile-avatar">JS</div>
             <div style={{ textAlign: 'center', marginBottom: '1.5rem' }}>
-              <div style={{ fontWeight: 700 }}>John Smith</div>
-              <div className="text-muted" style={{ fontSize: '0.875rem' }}>john.smith@email.com</div>
+              <div style={{ fontWeight: 700 }}>{user.name}</div>
+              <div className="text-muted" style={{ fontSize: '0.875rem' }}>{user.email}</div>
             </div>
             <div className="divider"></div>
             <div style={{ marginTop: '1rem' }}>

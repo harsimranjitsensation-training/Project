@@ -65,6 +65,7 @@ export const signin = async (req, res, next) => {
       message: "user login successful",
       data: {
         _id: user._id,
+        name: user.userName,
         email: user.email,
       },
     });
